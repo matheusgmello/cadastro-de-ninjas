@@ -1,13 +1,11 @@
-package dev.matheus.CadastroDeNinjas.Ninjas;
+package dev.matheus.CadastroDeNinjas.Ninjas.Models;
 
 
-import dev.matheus.CadastroDeNinjas.Missoes.MissoesModel;
+import dev.matheus.CadastroDeNinjas.Missoes.Models.MissoesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 // Entity ele transforma uma classe em uma Entidade do Banco de Dados
 
@@ -20,7 +18,7 @@ public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String nome;
 
