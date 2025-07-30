@@ -1,16 +1,25 @@
 package dev.matheus.CadastroDeNinjas.Missoes.Controllers;
 
+import dev.matheus.CadastroDeNinjas.Missoes.Models.MissoesModel;
+import dev.matheus.CadastroDeNinjas.Missoes.Services.MissoesService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
+    private MissoesService missoesService;
+
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
 
     // GET -- Mandar uma requisao para mostrar as missoes
     @GetMapping("/listar")
-    public String listarMissao() {
-        return "Missoes listadas com sucesso";
+    public List<MissoesModel> listarMissao() {
+        return missoesService.listarMissoes();
     }
 
 

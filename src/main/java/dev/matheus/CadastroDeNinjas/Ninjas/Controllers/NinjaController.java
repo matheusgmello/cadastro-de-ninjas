@@ -1,11 +1,21 @@
 package dev.matheus.CadastroDeNinjas.Ninjas.Controllers;
 
 
+import dev.matheus.CadastroDeNinjas.Ninjas.Models.NinjaModel;
+import dev.matheus.CadastroDeNinjas.Ninjas.Services.NinjaService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping
+@RequestMapping("/ninjas")
 public class NinjaController {
+
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     @GetMapping("/boasVindas")
     public String boasVindas() {
@@ -18,10 +28,10 @@ public class NinjaController {
         return "Ninja cadastrado com sucesso!";
     }
 
-    // Mostrar todos os Ninjas
-    @GetMapping("/todos")
-    public String mostrarNinja() {
-        return "Lista de todos os ninjas!";
+    // Lista todos os Ninjas
+    @GetMapping("/listar")
+    public List<NinjaModel> listarNinjas() {
+        return ninjaService.listarNinjas();
     }
 
     // Procurar Ninja por ID
