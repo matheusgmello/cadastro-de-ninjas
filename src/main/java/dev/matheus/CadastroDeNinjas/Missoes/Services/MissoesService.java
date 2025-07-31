@@ -32,4 +32,9 @@ public class MissoesService {
         return missoesRepository.save(missao);
     }
 
+    // Deleta uma missão por ID
+    public void deletarMissaoPorId(Long id) {
+        missoesRepository.deleteById(id);
+    }
+
 }
