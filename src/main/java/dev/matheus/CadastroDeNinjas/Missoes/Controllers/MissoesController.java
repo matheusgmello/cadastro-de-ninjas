@@ -37,9 +37,9 @@ public class MissoesController {
 
 
     // PUT -- Mandar uma requisao para alterar as missoes
-    @PutMapping("/alterar")
-    public String alterarMissao() {
-        return "Missao alterada com sucesso";
+    @PutMapping("/alterar/{id}")
+    public MissoesModel atualizarMissaoPorId(@PathVariable Long id, @RequestBody MissoesModel missaoAtualizada) {
+        return missoesService.atualizarMissaoPorId(id, missaoAtualizada);
     }
 
 
