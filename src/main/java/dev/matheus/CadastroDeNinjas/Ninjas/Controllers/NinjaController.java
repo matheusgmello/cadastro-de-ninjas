@@ -22,12 +22,6 @@ public class NinjaController {
         return "Bem-vindo ao Cadastro de Ninjas!";
     }
 
-    // Adicionar Ninja
-    @PostMapping("/criar")
-    public String criarNinja() {
-        return "Ninja cadastrado com sucesso!";
-    }
-
     // Lista todos os Ninjas
     @GetMapping("/listar")
     public List<NinjaModel> listarNinjas() {
@@ -38,6 +32,12 @@ public class NinjaController {
     @GetMapping("/listar/{id}")
     public NinjaModel listarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
+    }
+
+    // Adicionar Ninja
+    @PostMapping("/criar")
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+        return ninjaService.criarNinja(ninja);
     }
 
 
