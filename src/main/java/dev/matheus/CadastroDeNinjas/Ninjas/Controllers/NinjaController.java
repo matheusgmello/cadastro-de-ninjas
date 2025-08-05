@@ -1,7 +1,7 @@
 package dev.matheus.CadastroDeNinjas.Ninjas.Controllers;
 
 
-import dev.matheus.CadastroDeNinjas.Ninjas.Models.NinjaModel;
+import dev.matheus.CadastroDeNinjas.Ninjas.DTOs.NinjaDTO;
 import dev.matheus.CadastroDeNinjas.Ninjas.Services.NinjaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,27 +24,27 @@ public class NinjaController {
 
     // Lista todos os Ninjas
     @GetMapping("/listar")
-    public List<NinjaModel> listarNinjas() {
+    public List<NinjaDTO> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
     // Lista Ninja por ID
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
+    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
     }
 
     // Adicionar Ninja
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja) {
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja) {
         return ninjaService.criarNinja(ninja);
     }
 
 
     // Alterar dados dos ninjas
     @PutMapping("/alterar/{id}")
-    public NinjaModel atualizarNinjaPorId(@PathVariable Long id, @RequestBody NinjaModel ninjaAtualizado) {
-        return ninjaService.atualizarNinjaPorId(id, ninjaAtualizado);
+    public NinjaDTO atualizarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
+        return ninjaService.atualizarNinja(id, ninjaAtualizado);
     }
 
     // Deletar Ninja por ID
