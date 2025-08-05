@@ -1,5 +1,6 @@
 package dev.matheus.CadastroDeNinjas.Missoes.Controllers;
 
+import dev.matheus.CadastroDeNinjas.Missoes.DTOs.MissoesDTO;
 import dev.matheus.CadastroDeNinjas.Missoes.Models.MissoesModel;
 import dev.matheus.CadastroDeNinjas.Missoes.Services.MissoesService;
 import org.springframework.web.bind.annotation.*;
@@ -18,28 +19,28 @@ public class MissoesController {
 
     // GET -- Mandar uma requisao para mostrar as missoes
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissao() {
+    public List<MissoesDTO> listarMissao() {
         return missoesService.listarMissoes();
     }
 
     // GET -- Mandar uma requisao para mostrar as missoes por ID
     @GetMapping("/listar/{id}")
-    public MissoesModel listarMissoesPorId(@PathVariable Long id) {
+    public MissoesDTO listarMissoesPorId(@PathVariable Long id) {
         return missoesService.listarMissoesPorId(id);
     }
 
 
     // Post -- Mandar uma requisao para criar as missoes
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missao) {
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missao) {
         return missoesService.criarMissao(missao);
     }
 
 
     // PUT -- Mandar uma requisao para alterar as missoes
     @PutMapping("/alterar/{id}")
-    public MissoesModel atualizarMissaoPorId(@PathVariable Long id, @RequestBody MissoesModel missaoAtualizada) {
-        return missoesService.atualizarMissaoPorId(id, missaoAtualizada);
+    public MissoesDTO atualizarMissaoPorId(@PathVariable Long id, @RequestBody MissoesDTO missaoAtualizada) {
+        return missoesService.atualizarMissao(id, missaoAtualizada);
     }
 
 

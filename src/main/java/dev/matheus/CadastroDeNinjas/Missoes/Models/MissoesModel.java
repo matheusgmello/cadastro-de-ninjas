@@ -26,7 +26,6 @@ public class MissoesModel {
     @Column(name = "dificuldade_missao")
     private String dificuldade;
 
-    // @OneToMany Uma missao pode ter muitos ninjas
     @OneToMany(mappedBy = "missoes")
     @JsonIgnore
     private List<NinjaModel> ninjas;
