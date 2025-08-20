@@ -68,7 +68,7 @@ public class NinjaController {
                 .body("Ninja criado com sucesso: " + novoNinja.getNome() + " (ID): " + novoNinja.getId());
     }
 
-    @PutMapping("/alterar/{id}")
+    @PatchMapping("/alterar/{id}")
     @Operation(summary = "Atualiza um ninja existente", description = "Esta rota atualiza as informações de um ninja com base no ID fornecido.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ninja alterado com sucesso"),

@@ -58,7 +58,7 @@ public class MissoesController {
     }
 
 
-    @PutMapping("/alterar/{id}")
+    @PatchMapping("/alterar/{id}")
     @Operation(summary = "Atualiza uma missão existente", description = "Esta rota atualiza uma missão existente com base no ID fornecido.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Missão atualizada com sucesso"),

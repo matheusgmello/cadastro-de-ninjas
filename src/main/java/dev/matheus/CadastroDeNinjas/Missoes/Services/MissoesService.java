@@ -4,6 +4,7 @@ import dev.matheus.CadastroDeNinjas.Missoes.DTOs.MissoesDTO;
 import dev.matheus.CadastroDeNinjas.Missoes.Mappers.MissoesMapper;
 import dev.matheus.CadastroDeNinjas.Missoes.Models.MissoesModel;
 import dev.matheus.CadastroDeNinjas.Missoes.Repositories.MissoesRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,14 +50,23 @@ public class MissoesService {
 
     // Atualiza uma missão por ID
     public MissoesDTO atualizarMissao(Long id, MissoesDTO missoesDTO) {
-    Optional<MissoesModel> missaoExistente = missoesRepository.findById(id);
-    if (missaoExistente.isPresent()) {
-        MissoesModel misssaoAtualizada = missoesMapper.map(missoesDTO);
-        misssaoAtualizada.setId(id);
-        MissoesModel missaoSalva = missoesRepository.save(misssaoAtualizada);
-        return missoesMapper.map(missaoSalva);
+        return missoesRepository.findById(id)
+                .map(missao -> {
+                    if (missoesDTO.getNome() != null) {
+                        missao.setNome(missoesDTO.getNome());
+                    }
+                    if (missoesDTO.getDificuldade() != null) {
+                        missao.setDificuldade(missoesDTO.getDificuldade());
+                    }
+                    if (missoesDTO.getNinjas() != null) {
+                        missao.setNinjas(missoesDTO.getNinjas());
+                    }
+
+                    MissoesModel missaoSalva = missoesRepository.save(missao);
+                    return missoesMapper.map(missaoSalva);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Missão não encontrada com id " + id));
     }
-        return null;
-    }
+
 
 }

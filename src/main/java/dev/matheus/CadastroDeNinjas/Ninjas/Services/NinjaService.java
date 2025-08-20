@@ -4,6 +4,7 @@ import dev.matheus.CadastroDeNinjas.Ninjas.DTOs.NinjaDTO;
 import dev.matheus.CadastroDeNinjas.Ninjas.Mappers.NinjaMapper;
 import dev.matheus.CadastroDeNinjas.Ninjas.Models.NinjaModel;
 import dev.matheus.CadastroDeNinjas.Ninjas.Repositories.NinjaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,15 +48,33 @@ public class NinjaService {
         ninjaRepository.deleteById(id);
     }
 
-    // Atualiza um ninja por ID
+    // Atualiza parcialmente um ninja por ID (PATCH)
     public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
-        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
-        if (ninjaExistente.isPresent()) {
-            NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
-            ninjaAtualizado.setId(id);
-            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
-            return ninjaMapper.map(ninjaSalvo);
-        }
-        return null;
+        return ninjaRepository.findById(id)
+                .map(ninja -> {
+                    if (ninjaDTO.getNome() != null) {
+                        ninja.setNome(ninjaDTO.getNome());
+                    }
+                    if (ninjaDTO.getIdade() > 0) {
+                        ninja.setIdade(ninjaDTO.getIdade());
+                    }
+                    if (ninjaDTO.getEmail() != null) {
+                        ninja.setEmail(ninjaDTO.getEmail());
+                    }
+                    if (ninjaDTO.getImg_url() != null) {
+                        ninja.setImg_url(ninjaDTO.getImg_url());
+                    }
+                    if (ninjaDTO.getRank() != null) {
+                        ninja.setRank(ninjaDTO.getRank());
+                    }
+
+                    if (ninjaDTO.getMissoes() != null) {
+                        ninja.setMissoes(ninjaDTO.getMissoes());
+                    }
+
+                    NinjaModel ninjaSalvo = ninjaRepository.save(ninja);
+                    return ninjaMapper.map(ninjaSalvo);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Ninja não encontrado com id " + id));
     }
 }
